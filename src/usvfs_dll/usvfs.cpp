@@ -771,6 +771,11 @@ BOOL WINAPI VirtualLinkDirectoryStatic(LPCWSTR source, LPCWSTR destination, unsi
           std::string nameU8 = ush::string_cast<std::string>(
               file.fileName.c_str(), ush::CodePage::UTF8);
 
+          // here goes my fixsy, yep just that
+          if (bfs::path(nameU8).extension() == ".mohidden") {
+              continue;
+          }
+
           // TODO could save memory here by storing only the file name for the
           // source and constructing the full name using the parent directory
           context->redirectionTable().addFile(

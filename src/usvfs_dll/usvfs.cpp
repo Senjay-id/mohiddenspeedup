@@ -762,6 +762,9 @@ BOOL WINAPI VirtualLinkDirectoryStatic(LPCWSTR source, LPCWSTR destination, unsi
       for (winapi::ex::wide::FileResult file :
            winapi::ex::wide::quickFindFiles(sourceP.c_str(), L"*")) {
         if (file.attributes & FILE_ATTRIBUTE_DIRECTORY) {
+            if (file.fileName == L".git") {
+                continue;
+            }
           if ((file.fileName != L".") && (file.fileName != L"..")) {
             VirtualLinkDirectoryStatic((sourceW + file.fileName).c_str(),
                                        (destinationW + file.fileName).c_str(),
